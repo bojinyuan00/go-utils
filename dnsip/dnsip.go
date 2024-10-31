@@ -45,9 +45,9 @@ func DnsToIp(dnsString string) (ipStrings []string, err error) {
 }
 
 // IpToDns dns-ip转化域名
-func IpToDns(ipString string) (dnsString []string, err error) {
+func IpToDns(ipString string) (dnsStrings []string, err error) {
 	// 反向解析(主机必须得能解析到地址)
-	dnsString, _ = net.LookupAddr(ipString)
-	fmt.Println("dns:", dnsString)
-	return dnsString, nil
+	dnsStrings, _ = net.LookupAddr(ipString)
+	fmt.Println("dns+1:", dnsStrings)
+	return dnsStrings, nil
 }
