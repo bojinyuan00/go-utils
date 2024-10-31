@@ -2,6 +2,7 @@ package dnsip
 
 import (
 	`fmt`
+	`github.com/bojinyuan00/go-utils/comfunc`
 	`net`
 	`net/url`
 )
@@ -18,7 +19,7 @@ func urlToIp(dnsString string) (ipStrings []string, err error) {
 	//url=》协议类型判断
 	requestType := u.Scheme //协议类型
 	types := []string{"http", "https", "ftp", "ftps"}
-	found := stringInSlice(requestType, types)
+	found := comfunc.StringInSlice(requestType, types)
 	if !found {
 		fmt.Println("url协议类型错误，当前仅支持", types)
 		return
@@ -79,14 +80,4 @@ func domainToIp(dnsString string) (ipStrings []string, err error) {
 	}
 
 	return ipStrings, nil
-}
-
-//string in slices
-func stringInSlice(a string, list []string) bool {
-	for _, b := range list {
-		if b == a {
-			return true
-		}
-	}
-	return false
 }
