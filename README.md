@@ -7,7 +7,7 @@ go相关工具包
 ## 默认
 ```go get github.com/bojinyuan00/go-utils@latest```
 ## 指定版本
-```go get github.com/bojinyuan00/go-utils@v0.1.0```
+```go get github.com/bojinyuan00/go-utils@v1.0.0```
 
 # 功能划分
 ## dns domain ip transform
