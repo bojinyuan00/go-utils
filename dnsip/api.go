@@ -13,6 +13,13 @@ func Test() {
 
 // DnsToIp dns-domain-ip
 func DnsToIp(dnsString string) (ipStrings []string, err error) {
+	//异常捕捉
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Printf("捕捉到异常: %v\n", r)
+		}
+	}()
+
 	//1、先判断当前传值是否为url
 	_, err = url.ParseRequestURI(dnsString)
 	if err != nil { //非url直接按照域名字符串解析
@@ -26,6 +33,12 @@ func DnsToIp(dnsString string) (ipStrings []string, err error) {
 
 // IpToDns dns-ip-domain
 func IpToDns(ipString string) (dnsStrings []string, err error) {
+	//异常捕捉
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Printf("捕捉到异常: %v\n", r)
+		}
+	}()
 	// 反向解析(主机必须得能解析到地址)
 	dnsStrings, _ = net.LookupAddr(ipString)
 	fmt.Println("dns+1:", dnsStrings)

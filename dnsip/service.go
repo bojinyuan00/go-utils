@@ -1,6 +1,7 @@
 package dnsip
 
 import (
+	`errors`
 	`fmt`
 	`github.com/bojinyuan00/go-utils/comfunc`
 	`net`
@@ -12,8 +13,8 @@ func urlToIp(dnsString string) (ipStrings []string, err error) {
 	//解析url
 	u, err := url.Parse(dnsString)
 	if err != nil {
-		fmt.Println("url解析错误，请检查后重新输入:", err.Error())
-		return
+		//fmt.Println("url解析错误，请检查后重新输入:", err.Error())
+		return nil, errors.New("url解析错误，请检查后重新输入:" + err.Error())
 	}
 
 	//url=》协议类型判断
@@ -21,15 +22,12 @@ func urlToIp(dnsString string) (ipStrings []string, err error) {
 	types := []string{"http", "https", "ftp", "ftps"}
 	found := comfunc.StringInSlice(requestType, types)
 	if !found {
-		fmt.Println("url协议类型错误，当前仅支持", types)
-		return
+		//fmt.Println("url协议类型错误，当前仅支持", types)
+		return nil, errors.New("url协议类型错误，当前仅支持\"http\", \"https\", \"ftp\", \"ftps\"")
 	}
 
 	host := u.Hostname() //域名获取 =》后续用作ip地址解析
 	port := u.Port()     //端口获取
-	//fmt.Println("协议类型:", requestType)
-	//fmt.Println("Domain:", host)
-	//fmt.Println("port:", port)
 
 	ips, err := domainToIp(host)
 	if err != nil {
@@ -39,9 +37,21 @@ func urlToIp(dnsString string) (ipStrings []string, err error) {
 	//组装url完整参数
 	for _, c := range ips {
 		ipNew := requestType + "://" + c
-		if len(port) != 0 {
-			ipNew += ":" + port
+		if len(port) == 0 {
+			switch requestType {
+			case "http":
+				port = "80"
+			case "https":
+				port = "443"
+			case "ftp":
+				port = "21"
+			case "ftps":
+				port = "21"
+			default:
+				port = "-1"
+			}
 		}
+		ipNew += ":" + port
 		ipStrings = append(ipStrings, ipNew)
 	}
 
@@ -53,13 +63,17 @@ func urlToIp(dnsString string) (ipStrings []string, err error) {
 //域名解析
 func domainToIp(dnsString string) (ipStrings []string, err error) {
 	// 解析cname别名
-	cname, _ := net.LookupCNAME(dnsString)
+	cname, err := net.LookupCNAME(dnsString)
+	if err != nil {
+		//fmt.Println("域名解析错误：", err.Error())
+		return nil, errors.New("域名别名解析错误：" + err.Error())
+	}
 
 	// 解析ip地址
 	ipStrings, err = net.LookupHost(dnsString)
 	if err != nil {
-		fmt.Println("域名解析错误：", err.Error())
-		return
+		//fmt.Println("域名解析错误：", err.Error())
+		return nil, errors.New("域名解析错误：" + err.Error())
 	}
 
 	// 对域名解析进行控制判断
