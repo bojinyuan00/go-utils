@@ -11,11 +11,11 @@ go相关工具包
 
 # 功能划分
 ## dns domain ip transform
-dnsip ==>实现域名转ip、ip转化域名相关功能
-	dnsip.DnsToIp("music.daydaylove.top")
-	dnsip.DnsToIp("http://www.baidu.com")
-	dnsip.DnsToIp("http://www.baidu.com:8011")
-  	dnsip.DnsToIp("http://www.baidu.com:8011/admin/users")
+dnsip ==>实现域名转ip、ip转化域名相关功能<br>
+	dnsip.DnsToIp("music.daydaylove.top")<br>
+	dnsip.DnsToIp("http://www.baidu.com")<br>
+	dnsip.DnsToIp("http://www.baidu.com:8011")<br>
+  	dnsip.DnsToIp("http://www.baidu.com:8011/admin/users")<br>
   	dnsip.IpToDns("127.0.0.1")
 
 ## comfunc 公用的封装方法，独立做包使用/后期其它功能模块调用
