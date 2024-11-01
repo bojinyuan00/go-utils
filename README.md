@@ -12,11 +12,11 @@ go相关工具包
 # 功能划分
 ## dns domain ip transform
 dnsip ==>实现域名转ip、ip转化域名相关功能
-  dnsip.DnsToIp("music.daydaylove.top")
+	dnsip.DnsToIp("music.daydaylove.top")
 	dnsip.DnsToIp("http://www.baidu.com")
 	dnsip.DnsToIp("http://www.baidu.com:8011")
-  dnsip.DnsToIp("http://www.baidu.com:8011/admin/users")
-  dnsip.IpToDns("127.0.0.1")
+  	dnsip.DnsToIp("http://www.baidu.com:8011/admin/users")
+  	dnsip.IpToDns("127.0.0.1")
 
 ## comfunc 公用的封装方法，独立做包使用/后期其它功能模块调用
 判断字符串是否在切片数组内 comfunc.StringInSlice(a string, list []string) bool
