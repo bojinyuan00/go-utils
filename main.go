@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	ipStrings, err := dnsToIpTest("123344s")
+	ipStrings, err := dnsToIpTest("https://music.daydaylove.top")
 	if err != nil {
 		fmt.Println(err.Error())
 	}
